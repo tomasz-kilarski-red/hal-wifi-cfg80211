@@ -8421,7 +8421,7 @@ INT wifi_getRadioChannels(INT radioIndex, wifi_channelMap_t *outputMap, INT outp
 //		* 5560 MHz [112] (disabled)
 //
 //		Below command should fetch channel numbers of each enabled channel in 5GHz band:
-        if (sprintf(cmd,"iw list | grep MHz | tr -d '\\t' | grep -v disabled | tr -d '*' | grep '^ 5' | awk '{print $3}' | tr -d '[]'") < 0) {
+        if (sprintf(cmd,"iw phy1 info | grep MHz | tr -d '\\t' | grep -v disabled | tr -d '*' | grep '^ 5' | awk '{print $3}' | tr -d '[]'") < 0) {
             wifi_dbg_printf("%s: failed to build iw list command\n", __FUNCTION__);
             return RETURN_ERR;
         }
@@ -8443,7 +8443,7 @@ INT wifi_getRadioChannels(INT radioIndex, wifi_channelMap_t *outputMap, INT outp
             memset(cmd, 0, sizeof(cmd));
             // Below command should fetch string for DFS state (usable, available or unavailable)
             // Example line: "DFS state: usable (for 78930 sec)"
-            if (sprintf(cmd,"iw list | grep -A 2 '\\[%d\\]' | tr -d '\\t' | grep 'DFS state' | awk '{print $3}' | tr -d '\\n'", outputMap[i].ch_number) < 0) {
+            if (sprintf(cmd,"iw phy1 info | grep -A 2 '\\[%d\\]' | tr -d '\\t' | grep 'DFS state' | awk '{print $3}' | tr -d '\\n'", outputMap[i].ch_number) < 0) {
                 wifi_dbg_printf("%s: failed to build dfs state command\n", __FUNCTION__);
                 return RETURN_ERR;
             }
