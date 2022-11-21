@@ -9704,3 +9704,8 @@ INT wifi_getApAssociatedDevice(INT ap_index, CHAR *output_buf, INT output_buf_si
     return RETURN_OK;
 }
 #endif
+
+INT wifi_getVAPTelemetry(UINT apIndex, wifi_VAPTelemetry_t *telemetry)
+{
+    return RETURN_OK;
+}
